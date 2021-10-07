@@ -1,3 +1,4 @@
 TAGS
 .DS_Store
 .idea
+tests/tmp/

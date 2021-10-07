@@ -1,7 +1,10 @@
 FROM debian:buster-slim
 
-ARG composer_version=2.0.7
+ARG composer_version=2.1.9
 ARG php_version=7.4
+ARG app_user_id=1000
+ARG app_group_id=1000
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV PHP_VERSION=${php_version}
@@ -51,6 +54,8 @@ RUN set -eux; \
     sed -i "/^display_errors =/c\display_errors = On" /etc/php/${PHP_VERSION}/cli/php.ini; \
     echo "error_log = /var/log/php_cli_errors.log" >> /etc/php/${PHP_VERSION}/cli/php.ini; \
     touch /var/log/php_cli_errors.log; \
+    addgroup --gid $app_group_id groupphp; \
+    useradd --uid $app_user_id --gid $app_group_id -m userphp ; \
     mkdir /app/; \
     mkdir /bin/entrypoint.d
 
