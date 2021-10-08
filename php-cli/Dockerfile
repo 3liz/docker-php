@@ -19,6 +19,7 @@ RUN set -eux; \
 
 RUN apt-get -y install \
     php${PHP_VERSION}-bcmath \
+    php${PHP_VERSION}-bz2 \
     php${PHP_VERSION}-cli \
     php${PHP_VERSION}-curl \
     php${PHP_VERSION}-dba \
@@ -51,7 +52,6 @@ RUN wget -O /bin/composer https://getcomposer.org/download/$composer_version/com
     && chmod +x /bin/composer && /bin/composer self-update
 
 RUN set -eux; \
-    sed -i "/^display_errors =/c\display_errors = On" /etc/php/${PHP_VERSION}/cli/php.ini; \
     echo "error_log = /var/log/php_cli_errors.log" >> /etc/php/${PHP_VERSION}/cli/php.ini; \
     touch /var/log/php_cli_errors.log; \
     addgroup --gid $app_group_id groupphp; \

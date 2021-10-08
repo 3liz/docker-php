@@ -35,6 +35,14 @@ Simple example:
 docker run -i jelix/php-cli:7.4 php --version
 ```
 
+environment variables
+---------------------
+
+- `APP_USER_ID`: id of the user `userphp` that run scripts into php-cli/php-fpm (see below)
+- `APP_GROUP_ID`: id of the group `groupphp` that run scripts into php-cli/php-fpm (see below)
+- `DISPLAY_ERRORS`: `on` to display php errors in results (`display_errors` into `php.ini`)
+
+
 Setting user id and group id
 ----------------------------
 

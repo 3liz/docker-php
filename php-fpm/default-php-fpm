@@ -1,0 +1,4 @@
+
+# set umask so generated files are 664 and then groupphp group can
+# delete file
+umask 0002
