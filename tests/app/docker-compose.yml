@@ -1,7 +1,8 @@
 version: '3.4'
 services:
   fpm:
-    image: jelix/php-fpm:7.4
+    image: 3liz/php-fpm:7.4
+    container_name: 3liz-php-fpm
     environment:
       - APP_USER_ID
       - APP_GROUP_ID
@@ -9,6 +10,7 @@ services:
       - "./www/:/app/"
   nginx:
     image: nginx:alpine
+    container_name: 3liz-php-nginx
     environment:
       - APP_USER_ID
       - APP_GROUP_ID

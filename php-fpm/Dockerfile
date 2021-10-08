@@ -1,6 +1,6 @@
 ARG php_version=7.4
 
-FROM jelix/php-cli:${php_version}
+FROM 3liz/php-cli:${php_version}
 
 ARG php_version
 ARG DEBIAN_FRONTEND=noninteractive
