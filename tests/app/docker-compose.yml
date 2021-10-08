@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  fpm:
+    image: jelix/php-fpm:7.4
+    environment:
+      - APP_USER_ID
+      - APP_GROUP_ID
+    volumes:
+      - "./www/:/app/"
+  nginx:
+    image: nginx:alpine
+    environment:
+      - APP_USER_ID
+      - APP_GROUP_ID
+    volumes:
+      - "./nginx-default.conf:/etc/nginx/conf.d/default.conf"
+      - "./www/:/app/"
+    command: /bin/sh -c "nginx -g 'daemon off;'"
+    ports:
+      - 9658:80

@@ -25,7 +25,7 @@ fi
 
 for entry in $(ls /bin/entrypoint.d/)
 do
-  source $entry
+  source /bin/entrypoint.d/$entry
 done
 
 
