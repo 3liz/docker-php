@@ -7,11 +7,13 @@ Features
 --------
 
 * Based on Debian Bullseye-slim
+* Use packages from packages.sury.org, made by the maintainer of the official debian packages of PHP.
 * List of extensions:
   - all extensions built within the PHP binary of the debian package
   - other: bcmath, bz2, curl, dba, gd, imap, intl, json, ldap, mbstring, memcache, memcached, mysql, pgsql, 
     redis, soap, sqlite3, uuid, xml, yaml, zip
 * Composer is also installed.
+* Other softwares : curl, wget, git, unzip, gnupg2
 * possibility to setup at startup the uid/gid of the user that run php, so generated files into volumes could be owned 
   by the corresponding user on the host for example. 
 * possibility to extend the entrypoint script.
