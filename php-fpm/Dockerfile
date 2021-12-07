@@ -1,4 +1,4 @@
-ARG php_version=7.4
+ARG php_version=8.1
 ARG REGISTRY_PREFIX=''
 
 FROM ${REGISTRY_PREFIX}liz-php-cli:${php_version}

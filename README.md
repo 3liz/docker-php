@@ -44,7 +44,7 @@ To run images
 Simple example that launch `php --version` :
 
 ```
-docker run -i 3liz/liz-php-cli:7.4 php --version
+docker run -i 3liz/liz-php-cli:8.1 php --version
 ```
 
 environment variables
@@ -76,7 +76,7 @@ In most of case, during development, you would like to set with your own user id
 export APP_USER_ID=$(id -u)
 export APP_GROUP_ID=$(id -g)
 
-docker run -i -e APP_GROUP_ID -e APP_USER_ID 3liz/liz-php-fpm:7.4
+docker run -i -e APP_GROUP_ID -e APP_USER_ID 3liz/liz-php-fpm:8.1
 ```
 
 In the `php-cli` image, to run a script with `userphp`, don't use the `--user`
@@ -87,7 +87,7 @@ parameter, but call your script with `exec_userphp`:
 export APP_USER_ID=$(id -u)
 export APP_GROUP_ID=$(id -g)
 
-docker run -i -e APP_GROUP_ID -e APP_USER_ID 3liz/liz-php-cli:7.4 exec_userphp touch /app/hello
+docker run -i -e APP_GROUP_ID -e APP_USER_ID 3liz/liz-php-cli:8.1 exec_userphp touch /app/hello
 ```
 
 Application mount
@@ -108,10 +108,10 @@ Just put your scripts into `/bin/entrypoint.d/`. They will be called by
 the main entrypoint of the `php-cli`/`php-fpm` image.
 
 ```dockerfile
-FROM 3liz/liz-php-cli:7.4
+FROM 3liz/liz-php-cli:8.1
 
 # exemple to install a specific extension
-RUN apt-get -y install php7.4-other-extension
+RUN apt-get -y install php8.1-other-extension
 
 # exemple to add an additional entrypoint script
 COPY my-entrypoint-script.sh /bin/entrypoint.d/

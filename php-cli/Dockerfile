@@ -1,8 +1,8 @@
 FROM debian:bullseye-slim
 MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
 
-ARG composer_version=2.1.9
-ARG php_version=7.4
+ARG composer_version=2.1.14
+ARG php_version=8.1
 ARG app_user_id=1000
 ARG app_group_id=1000
 
@@ -35,15 +35,13 @@ RUN apt-get -y install \
     php${PHP_VERSION}-sqlite3 \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-zip \
+    php${PHP_VERSION}-memcache \
+    php${PHP_VERSION}-memcached \
+    php${PHP_VERSION}-redis \
+    php${PHP_VERSION}-uuid \
+    php${PHP_VERSION}-yaml \
     ; if [ "$PHP_VERSION" != "8.0" -a "$PHP_VERSION" != "8.1"  ]; then apt-get -y install \
         php${PHP_VERSION}-json \
-    ; fi \
-    ; if [ "$PHP_VERSION" != "8.1" ]; then apt-get -y install \
-        php${PHP_VERSION}-memcache \
-        php${PHP_VERSION}-memcached \
-        php${PHP_VERSION}-redis \
-        php${PHP_VERSION}-uuid \
-        php${PHP_VERSION}-yaml \
     ; fi \
     ; \
     apt-get clean
