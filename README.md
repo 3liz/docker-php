@@ -1,9 +1,21 @@
 Docker Images for PHP applications
 ==================================
 
-Images providing a PHP environment, with some preloaded extension. 
+Images providing a PHP environment, with some preloaded extension.
 
-Work in progress.
+Features
+--------
+
+* Based on Debian Bullseye-slim
+* List of extensions:
+  - all extensions built within the PHP binary of the debian package
+  - other: bcmath, bz2, curl, dba, gd, imap, intl, json, ldap, mbstring, memcache, memcached, mysql, pgsql, 
+    redis, soap, sqlite3, uuid, xml, yaml, zip
+* Composer is also installed.
+* possibility to setup at startup the uid/gid of the user that run php, so generated files into volumes could be owned 
+  by the corresponding user on the host for example. 
+* possibility to extend the entrypoint script.
+* possibility to enable the display of errors for debug 
 
 To build images
 ---------------
@@ -29,7 +41,7 @@ make build-fpm PHP_VERSION=8.0
 To run images
 -------------
 
-Simple example:
+Simple example that launch `php --version` :
 
 ```
 docker run -i 3liz/liz-php-cli:7.4 php --version

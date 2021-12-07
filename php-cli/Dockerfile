@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
 
 ARG composer_version=2.1.9
