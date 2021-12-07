@@ -1,0 +1,86 @@
+stages:
+- build
+- release
+
+#---------------
+# Build
+#---------------
+
+.build-docker:
+  stage: build
+  script:
+    - make -C php-cli build deliver PHP_VERSION=$PHP_VERSION
+    - make -C php-fpm build deliver PHP_VERSION=$PHP_VERSION
+    - make -C php-fpm clean PHP_VERSION=$PHP_VERSION
+    - make -C php-cli clean PHP_VERSION=$PHP_VERSION
+  environment:
+    name: snap
+  artifacts:
+    paths:
+      - "php-cli/factory.manifest"
+      - "php-fpm/factory.manifest"
+  only:
+    refs:
+      - tags
+      - main
+  tags:
+    - infrav3-dind
+
+build-docker:7.4:
+  extends: .build-docker
+  variables:
+    PHP_VERSION: "7.4"
+
+build-docker:8.0:
+  extends: .build-docker
+  variables:
+    PHP_VERSION: "8.0"
+
+build-docker:8.1:
+  extends: .build-docker
+  variables:
+    PHP_VERSION: "8.1"
+
+
+#-------------
+# Release
+#-------------
+
+.release:
+  stage: release
+  script:
+    - FACTORY_MANIFEST="php-cli/factory.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-cli-$PHP_VERSION
+    - FACTORY_MANIFEST="php-fpm/factory.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-fpm-$PHP_VERSION
+    - FACTORY_MANIFEST="php-cli/factory.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
+    - FACTORY_MANIFEST="php-fpm/factory.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
+  environment:
+    name: production
+  when: manual
+  only:
+    refs:
+      - tags
+  tags:
+    - infrav3-dind
+
+release:7.4:
+  extends: .release
+  variables:
+    PHP_VERSION: "7.4"
+  dependencies:
+    - build-docker:7.4
+
+release:8.0:
+  extends: .release
+  variables:
+    PHP_VERSION: "8.0"
+  dependencies:
+    - build-docker:8.0
+
+release:8.1:
+  extends: .release
+  variables:
+    PHP_VERSION: "8.1"
+  dependencies:
+    - build-docker:8.1
+
+

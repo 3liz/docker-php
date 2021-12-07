@@ -1,4 +1,5 @@
 FROM debian:buster-slim
+MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
 
 ARG composer_version=2.1.9
 ARG php_version=7.4

@@ -1,6 +1,8 @@
 ARG php_version=7.4
+ARG REGISTRY_PREFIX=''
 
-FROM 3liz/php-cli:${php_version}
+FROM ${REGISTRY_PREFIX}liz-php-cli:${php_version}
+MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
 
 ARG php_version
 ARG DEBIAN_FRONTEND=noninteractive
