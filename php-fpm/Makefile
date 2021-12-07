@@ -53,7 +53,7 @@ ifeq ($(GIT_BRANCH),)
 GIT_BRANCH=$(CI_COMMIT_BRANCH)
 endif
 
-ifeq ($(GIT_BRANCH),master)
+ifeq ($(GIT_BRANCH),main)
 TAG_DEV=dev
 else
 TAG_DEV=$(GIT_BRANCH)-dev
