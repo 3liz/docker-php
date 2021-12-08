@@ -1,7 +1,5 @@
 #!/bin/bash
 ROOTDIR="/app/"
-APP_USER=userphp
-APP_GROUP=groupphp
 
 COMMAND="$1"
 shift
@@ -33,7 +31,7 @@ function composerLaunch() {
         rm -f $APPDIR/composer.lock
     fi
     composer $1 --prefer-dist --no-progress --no-ansi --no-interaction --working-dir=$APPDIR/
-    chown -R $APP_USER:$APP_GROUP $APPDIR/vendor $APPDIR/composer.lock
+    chown -R $APP_USER_NAME:$APP_GROUP_NAME $APPDIR/vendor $APPDIR/composer.lock
 }
 
 case $COMMAND in
