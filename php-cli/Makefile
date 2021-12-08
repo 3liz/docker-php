@@ -31,6 +31,10 @@ _build:
 	docker build --rm --force-rm --no-cache $(DOCKER_BUILD_ARGS) \
 		$(BUILD_ARGS) -t $(BUILDIMAGE) $(DOCKERFILE) .
 
+build-dev: _build-dev manifest
+
+_build-dev:
+	docker build $(DOCKER_BUILD_ARGS) $(BUILD_ARGS) -t $(BUILDIMAGE) $(DOCKERFILE) .
 
 manifest: 
 	{ \
