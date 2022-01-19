@@ -6,6 +6,7 @@ services:
     environment:
       - APP_USER_ID
       - APP_GROUP_ID
+      - DISPLAY_ERRORS=on
     volumes:
       - "./www/:/app/"
   nginx:
