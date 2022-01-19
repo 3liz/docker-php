@@ -9,6 +9,7 @@ services:
       - DISPLAY_ERRORS=on
     volumes:
       - "./www/:/app/"
+      - "./test-entrypoint.sh:/bin/entrypoint.d/test-entrypoint.sh"
   nginx:
     image: nginx:alpine
     container_name: 3liz-php-nginx
