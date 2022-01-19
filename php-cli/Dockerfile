@@ -9,8 +9,6 @@ ARG app_group_id=1000
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV PHP_VERSION=${php_version}
-ENV APP_USER_NAME=userphp
-ENV APP_GROUP_NAME=groupphp
 
 RUN set -eux; \
     echo 'alias ll="ls -al"' > /etc/profile.d/start; \

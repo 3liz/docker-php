@@ -6,8 +6,6 @@ services:
     environment:
       - APP_USER_ID
       - APP_GROUP_ID
-      - APP_USER_NAME
-      - APP_GROUP_NAME
     volumes:
       - "./www/:/app/"
   nginx:

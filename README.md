@@ -14,7 +14,7 @@ Features
     redis, soap, sqlite3, uuid, xml, yaml, zip
 * Composer is also installed.
 * Other softwares : curl, wget, git, unzip, gnupg2
-* possibility to setup at startup the uid/gid/username/group of the user that run php, so generated files into volumes could be owned 
+* possibility to setup at startup the uid/gid of the user that run php, so generated files into volumes could be owned 
   by the corresponding user on the host for example. 
 * possibility to extend the entrypoint script.
 * possibility to enable the display of errors for debug 
@@ -91,25 +91,6 @@ export APP_GROUP_ID=$(id -g)
 
 docker run -i -e APP_GROUP_ID -e APP_USER_ID 3liz/liz-php-cli:8.1 exec_userphp touch /app/hello
 ```
-
-Setting user name and group name
---------------------------------
-
-If you want to change the name of the user and/or the group name of the php user, you can use the variables
-`APP_USER_NAME` and `APP_GROUP_NAME`.
-
-```
-export APP_USER_NAME=lizmap
-export APP_GROUP_NAME=lizmapgroup
-
-docker run -i -e APP_USER_NAME -e APP_GROUP_NAME 3liz/liz-php-cli:8.1 ls -al /app
-```
-
-Output:
-```
-drwxrwxr-x 2 lizmap lizmapgroup 4096 Oct  8 13:03
-```
-
 
 Application mount
 -----------------
