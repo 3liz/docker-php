@@ -15,13 +15,15 @@ if [ "$CURRENT_USER_ID" == "0" ]; then
   fi
 
   chown userphp:groupphp /app
+
+  if [ "$DISPLAY_ERRORS" == "on" ]; then
+      sed -i "/^display_errors =/c\display_errors = On" /etc/php/${PHP_VERSION}/cli/php.ini;
+  else
+      sed -i "/^display_errors =/c\display_errors = Off" /etc/php/${PHP_VERSION}/cli/php.ini;
+  fi
 fi
 
-if [ "$DISPLAY_ERRORS" == "on" ]; then
-    sed -i "/^display_errors =/c\display_errors = On" /etc/php/${PHP_VERSION}/cli/php.ini;
-else
-    sed -i "/^display_errors =/c\display_errors = Off" /etc/php/${PHP_VERSION}/cli/php.ini;
-fi
+
 
 for entry in $(ls /bin/entrypoint.d/)
 do
