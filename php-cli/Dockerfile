@@ -16,9 +16,10 @@ RUN set -eux; \
     apt-get -y install apt-transport-https lsb-release ca-certificates curl wget git unzip gnupg2; \
     wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg; \
     sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'; \
-    apt-get update;
+    apt-get clean
 
-RUN apt-get -y install \
+RUN apt-get update;  \
+    apt-get -y install \
     php${PHP_VERSION}-bcmath \
     php${PHP_VERSION}-bz2 \
     php${PHP_VERSION}-cli \
