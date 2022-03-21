@@ -5,12 +5,14 @@ set -e
 CURRENT_USER_ID=$(id -u)
 
 if [ "$CURRENT_USER_ID" == "0" ]; then
-  echo "setup user id"
-  if [ "$APP_GROUP_ID" != "" ]; then
+
+  GROUPID=$(getent group groupphp | cut -d: -f3)
+  USERID=$(id -u userphp)
+
+  if [ "$APP_GROUP_ID" != "" -a "$APP_GROUP_ID" != "$GROUPID" ]; then
      groupmod -g $APP_GROUP_ID groupphp
   fi
-
-  if [ "$APP_USER_ID" != "" ]; then
+  if [ "$APP_USER_ID" != "" -a "$APP_USER_ID" != "$USERID" ]; then
      usermod -u $APP_USER_ID userphp
   fi
 
