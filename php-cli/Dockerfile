@@ -52,7 +52,7 @@ RUN wget -O /bin/composer https://getcomposer.org/download/$composer_version/com
     && chmod +x /bin/composer && /bin/composer self-update
 
 RUN set -eux; \
-    echo "error_log = /var/log/php_cli_errors.log" >> /etc/php/${PHP_VERSION}/cli/php.ini; \
+    echo "error_log = /var/log/php_cli_errors.log" >> /etc/php/${PHP_VERSION}/cli/conf.d/errorlog.ini; \
     touch /var/log/php_cli_errors.log; \
     addgroup --gid $app_group_id groupphp; \
     useradd --uid $app_user_id --gid $app_group_id -m userphp ; \
