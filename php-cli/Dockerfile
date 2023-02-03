@@ -41,7 +41,7 @@ RUN apt-get update;  \
     php${PHP_VERSION}-redis \
     php${PHP_VERSION}-uuid \
     php${PHP_VERSION}-yaml \
-    ; if [ "$PHP_VERSION" != "8.0" -a "$PHP_VERSION" != "8.1"  ]; then apt-get -y install \
+    ; if [ "$PHP_VERSION" = "7.4" ]; then apt-get -y install \
         php${PHP_VERSION}-json \
     ; fi \
     ; \
