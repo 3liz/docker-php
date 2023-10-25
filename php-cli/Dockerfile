@@ -1,7 +1,7 @@
 FROM debian:bullseye-slim
 MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
 
-ARG composer_version=2.5.8
+ARG composer_version=2.6.5
 ARG php_version=8.1
 ARG app_user_id=1000
 ARG app_group_id=1000
