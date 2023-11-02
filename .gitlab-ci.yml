@@ -9,16 +9,14 @@ stages:
 .build-docker:
   stage: build
   script:
-    - make -C php-cli build deliver PHP_VERSION=$PHP_VERSION
-    - make -C php-fpm build deliver PHP_VERSION=$PHP_VERSION
-    - make -C php-fpm clean PHP_VERSION=$PHP_VERSION
-    - make -C php-cli clean PHP_VERSION=$PHP_VERSION
+    - make -C docker build deliver PHP_VERSION=$PHP_VERSION
+    - make -C docker clean PHP_VERSION=$PHP_VERSION
   environment:
     name: snap
   artifacts:
     paths:
-      - "php-cli/factory.manifest"
-      - "php-fpm/factory.manifest"
+      - "docker/factory-cli.manifest"
+      - "docker/factory-fpm.manifest"
   only:
     refs:
       - tags
@@ -54,10 +52,10 @@ build-docker:8.2:
 .release:
   stage: release
   script:
-    - FACTORY_MANIFEST="php-cli/factory.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-cli-$PHP_VERSION
-    - FACTORY_MANIFEST="php-fpm/factory.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-fpm-$PHP_VERSION
-    - FACTORY_MANIFEST="php-cli/factory.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
-    - FACTORY_MANIFEST="php-fpm/factory.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
+    - FACTORY_MANIFEST="docker/factory-cli.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-cli-$PHP_VERSION
+    - FACTORY_MANIFEST="docker/factory-fpm.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-fpm-$PHP_VERSION
+    - FACTORY_MANIFEST="docker/factory-cli.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
+    - FACTORY_MANIFEST="docker/factory-fpm.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
   environment:
     name: production
   when: manual

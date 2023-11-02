@@ -2,4 +2,5 @@ TAGS
 .DS_Store
 .idea
 tests/tmp/
-factory.manifest
+factory-cli.manifest
+factory-fpm.manifest

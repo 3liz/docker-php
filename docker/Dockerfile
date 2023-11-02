@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bullseye-slim as php-cli
 MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
 
 ARG composer_version=2.6.5
@@ -66,3 +66,23 @@ RUN chmod 755 /bin/entrypoint.sh /bin/helpers.sh
 WORKDIR /app/
 ENTRYPOINT ["/bin/entrypoint.sh"]
 #CMD ["tail", "-f", "/var/log/php_cli_errors.log"]
+
+FROM php-cli as php-fpm
+
+RUN apt-get -y install \
+    php${PHP_VERSION}-fpm \
+    ; \
+    apt-get clean
+
+RUN set -eux; \
+    ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm; \
+    mkdir -p /run/php/;
+
+COPY www.conf /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+COPY fpm-entrypoint.sh /bin/entrypoint.d/
+COPY default-php-fpm /etc/default/php-fpm
+
+RUN chmod +x /bin/entrypoint.d/fpm-entrypoint.sh
+
+CMD ["/usr/sbin/php-fpm", "-F", "-O"]
+

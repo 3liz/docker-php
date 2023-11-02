@@ -22,22 +22,16 @@ Features
 To build images
 ---------------
 
-To build the php-cli image:
+To build the php-cli and the php-fpm image:
 
 ```
-make build-cli
-```
-
-To build the php-fpm image:
-
-```
-make build-fpm
+make build
 ```
 
 You can set the PHP_VERSION to the version of PHP you want.
 
 ```
-make build-fpm PHP_VERSION=8.0
+make build PHP_VERSION=8.0
 ```
 
 To run images
