@@ -29,11 +29,6 @@ build-docker:7.4:
   variables:
     PHP_VERSION: "7.4"
 
-build-docker:8.0:
-  extends: .build-docker
-  variables:
-    PHP_VERSION: "8.0"
-
 build-docker:8.1:
   extends: .build-docker
   variables:
@@ -43,6 +38,11 @@ build-docker:8.2:
   extends: .build-docker
   variables:
     PHP_VERSION: "8.2"
+
+build-docker:8.3:
+  extends: .build-docker
+  variables:
+    PHP_VERSION: "8.3"
 
 
 #-------------
@@ -72,13 +72,6 @@ release:7.4:
   dependencies:
     - build-docker:7.4
 
-release:8.0:
-  extends: .release
-  variables:
-    PHP_VERSION: "8.0"
-  dependencies:
-    - build-docker:8.0
-
 release:8.1:
   extends: .release
   variables:
@@ -92,5 +85,12 @@ release:8.2:
     PHP_VERSION: "8.2"
   dependencies:
     - build-docker:8.2
+
+release:8.3:
+  extends: .release
+  variables:
+    PHP_VERSION: "8.3"
+  dependencies:
+    - build-docker:8.3
 
 

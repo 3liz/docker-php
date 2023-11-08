@@ -18,7 +18,8 @@ RUN set -eux; \
     sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'; \
     apt-get clean
 
-RUN apt-get update;  \
+RUN set -eux; \
+    apt-get update;  \
     apt-get -y install \
     php${PHP_VERSION}-bcmath \
     php${PHP_VERSION}-bz2 \
@@ -36,11 +37,13 @@ RUN apt-get update;  \
     php${PHP_VERSION}-sqlite3 \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-zip \
+     ; if [ "$PHP_VERSION" != "8.3" ]; then apt-get -y install \
     php${PHP_VERSION}-memcache \
     php${PHP_VERSION}-memcached \
     php${PHP_VERSION}-redis \
     php${PHP_VERSION}-uuid \
     php${PHP_VERSION}-yaml \
+    ; fi \
     ; if [ "$PHP_VERSION" = "7.4" ]; then apt-get -y install \
         php${PHP_VERSION}-json \
     ; fi \

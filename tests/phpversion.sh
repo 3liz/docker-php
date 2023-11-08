@@ -1,4 +1,4 @@
 #!/bin/bash
-
-docker run -i  --name 3liz-php-cli --rm 3liz/liz-php-cli:8.1 php --version
+PHP_VERSION=${PHP_VERSION:=8.1}
+docker run -i  --name 3liz-php-cli --rm 3liz/liz-php-cli:$PHP_VERSION php --version
 

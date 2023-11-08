@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   fpm:
-    image: 3liz/liz-php-fpm:8.1-dev
+    image: 3liz/liz-php-fpm:${PHP_VERSION}-dev
     container_name: 3liz-php-fpm
     environment:
       - APP_USER_ID
