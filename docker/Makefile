@@ -24,6 +24,10 @@ FPMNAME=liz-php-fpm
 FPMBUILDIMAGE:=$(FPMNAME):$(PHP_VERSION)-$(COMMITID)
 FPMMANIFEST=factory-fpm.manifest
 
+WEBFPMNAME=liz-php-web
+WEBFPMBUILDIMAGE:=$(WEBFPMNAME):$(PHP_VERSION)-$(COMMITID)
+WEBFPMMANIFEST=factory-web.manifest
+
 all:
 	@echo "Usage: make [build|deliver|clean]"
 
@@ -34,12 +38,15 @@ _build:
 		$(BUILD_ARGS) -t $(CLIBUILDIMAGE)  --target=php-cli $(DOCKERFILE) .
 	docker build --rm --force-rm --no-cache $(DOCKER_BUILD_ARGS) \
 		$(BUILD_ARGS) -t $(FPMBUILDIMAGE)  --target=php-fpm $(DOCKERFILE) .
+	docker build --rm --force-rm --no-cache $(DOCKER_BUILD_ARGS) \
+		$(BUILD_ARGS) -t $(FPMBUILDIMAGE)  --target=php-web $(DOCKERFILE) .
 
 build-dev: _build-dev manifest
 
 _build-dev:
 	docker build $(DOCKER_BUILD_ARGS) $(BUILD_ARGS) -t $(CLIBUILDIMAGE) --target=php-cli $(DOCKERFILE) .
 	docker build $(DOCKER_BUILD_ARGS) $(BUILD_ARGS) -t $(FPMBUILDIMAGE) --target=php-fpm $(DOCKERFILE) .
+	docker build $(DOCKER_BUILD_ARGS) $(BUILD_ARGS) -t $(WEBFPMBUILDIMAGE) --target=php-web $(DOCKERFILE) .
 
 manifest: 
 	{ \
@@ -56,7 +63,13 @@ manifest:
 	echo version=$$version >> $(FPMMANIFEST) && \
 	echo release_tag=$$release_tag >> $(FPMMANIFEST) && \
 	echo buildid=$(BUILDID)   >> $(FPMMANIFEST) && \
-	echo commitid=$(COMMITID) >> $(FPMMANIFEST); }
+	echo commitid=$(COMMITID) >> $(WEBFPMMANIFEST); \
+	echo name=$(WEBFPMNAME) > $(WEBFPMMANIFEST) && \
+	echo version=$$version >> $(WEBFPMMANIFEST) && \
+	echo release_tag=$$release_tag >> $(WEBFPMMANIFEST) && \
+	echo buildid=$(BUILDID)   >> $(WEBFPMMANIFEST) && \
+	echo commitid=$(COMMITID) >> $(WEBFPMMANIFEST); \
+	}
 
 deliver: tag push
 
@@ -71,6 +84,9 @@ tag:
 	source $(FPMMANIFEST); \
 	docker tag $(FPMBUILDIMAGE) $(REGISTRY_PREFIX)$(FPMNAME):$${release_tag}-$(TAG_DEV); \
 	docker tag $(FPMBUILDIMAGE) $(REGISTRY_PREFIX)$(FPMNAME):$${release_tag}; \
+	source $(WEBFPMMANIFEST); \
+	docker tag $(WEBFPMBUILDIMAGE) $(REGISTRY_PREFIX)$(WEBFPMNAME):$${release_tag}-$(TAG_DEV); \
+	docker tag $(WEBFPMBUILDIMAGE) $(REGISTRY_PREFIX)$(WEBFPMNAME):$${release_tag}; \
 	}
 
 push:
@@ -78,6 +94,8 @@ push:
 	docker push $(REGISTRY_URL)/$(CLINAME):$${release_tag}-$(TAG_DEV); \
 	source $(FPMMANIFEST); \
 	docker push $(REGISTRY_URL)/$(FPMNAME):$${release_tag}-$(TAG_DEV); \
+	source $(WEBFPMMANIFEST); \
+	docker push $(REGISTRY_URL)/$(WEBFPMNAME):$${release_tag}-$(TAG_DEV); \
 	}
 else
 tag:
@@ -87,6 +105,9 @@ tag:
 	source $(FPMMANIFEST); \
 	docker tag $(FPMBUILDIMAGE) $(REGISTRY_PREFIX)$(FPMNAME):$$version; \
 	docker tag $(FPMBUILDIMAGE) $(REGISTRY_PREFIX)$(FPMNAME):$$release_tag; \
+	source $(WEBFPMMANIFEST); \
+	docker tag $(WEBFPMBUILDIMAGE) $(REGISTRY_PREFIX)$(WEBFPMNAME):$$version; \
+	docker tag $(WEBFPMBUILDIMAGE) $(REGISTRY_PREFIX)$(WEBFPMNAME):$$release_tag; \
 	}
 
 push:
@@ -96,13 +117,18 @@ push:
 	source $(FPMMANIFEST); \
 	docker push $(REGISTRY_URL)/$(FPMNAME):$$version; \
 	docker push $(REGISTRY_URL)/$(FPMNAME):$$release_tag; \
+	source $(WEBFPMMANIFEST); \
+	docker push $(REGISTRY_URL)/$(WEBFPMNAME):$$version; \
+	docker push $(REGISTRY_URL)/$(WEBFPMNAME):$$release_tag; \
 	}
 endif
 
 clean-all:
 	docker rmi -f $(shell docker images $(CLIBUILDIMAGE) -q)
 	docker rmi -f $(shell docker images $(FPMBUILDIMAGE) -q)
+	docker rmi -f $(shell docker images $(WEBFPMBUILDIMAGE) -q)
 
 clean:
 	 docker rmi $(CLIBUILDIMAGE)
 	 docker rmi $(FPMBUILDIMAGE)
+	 docker rmi $(WEBFPMBUILDIMAGE)

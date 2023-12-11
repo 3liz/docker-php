@@ -89,3 +89,22 @@ RUN chmod +x /bin/entrypoint.d/fpm-entrypoint.sh
 
 CMD ["/usr/sbin/php-fpm", "-F", "-O"]
 
+FROM php-fpm as php-web
+
+RUN apt-get -y install \
+    nginx \
+    nginx-common \
+    nginx-extras \
+    supervisor \
+    ; \
+    apt-get clean
+
+RUN    mkdir /var/log/docker-php/;
+RUN  rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default;
+
+COPY web/nginx/snippets/ /etc/nginx/snippets/
+COPY web/supervisord.conf /etc/supervisor/supervisord.conf
+COPY web/supervisord_workers.conf /etc/supervisor/conf.d/
+COPY web/nginx/default.conf /etc/nginx/sites-enabled/default.conf
+
+CMD ["/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]

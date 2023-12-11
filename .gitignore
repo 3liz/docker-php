@@ -4,3 +4,6 @@ TAGS
 tests/tmp/
 factory-cli.manifest
 factory-fpm.manifest
+factory-web.manifest
+tests/app2/log/*
+!tests/app2/log/.dummy

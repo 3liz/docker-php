@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  web:
+    image: 3liz/liz-php-web:${PHP_VERSION}-dev
+    container_name: 3liz-php-web
+    environment:
+      - APP_USER_ID
+      - APP_GROUP_ID
+      - DISPLAY_ERRORS=on
+    volumes:
+      - "./www/:/app/"
+      - "./test-entrypoint.sh:/bin/entrypoint.d/test-entrypoint.sh"
+      - "./log/:/var/log/docker-php/"
+    ports:
+      - 9659:80
