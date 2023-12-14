@@ -17,6 +17,7 @@ stages:
     paths:
       - "docker/factory-cli.manifest"
       - "docker/factory-fpm.manifest"
+      - "docker/factory-web.manifest"
   only:
     refs:
       - tags
@@ -54,8 +55,10 @@ build-docker:8.3:
   script:
     - FACTORY_MANIFEST="docker/factory-cli.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-cli-$PHP_VERSION
     - FACTORY_MANIFEST="docker/factory-fpm.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-fpm-$PHP_VERSION
+    - FACTORY_MANIFEST="docker/factory-web.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-web-$PHP_VERSION
     - FACTORY_MANIFEST="docker/factory-cli.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
     - FACTORY_MANIFEST="docker/factory-fpm.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
+    - FACTORY_MANIFEST="docker/factory-web.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
   environment:
     name: production
   when: manual

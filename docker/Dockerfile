@@ -37,13 +37,11 @@ RUN set -eux; \
     php${PHP_VERSION}-sqlite3 \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-zip \
-     ; if [ "$PHP_VERSION" != "8.3" ]; then apt-get -y install \
     php${PHP_VERSION}-memcache \
     php${PHP_VERSION}-memcached \
     php${PHP_VERSION}-redis \
     php${PHP_VERSION}-uuid \
     php${PHP_VERSION}-yaml \
-    ; fi \
     ; if [ "$PHP_VERSION" = "7.4" ]; then apt-get -y install \
         php${PHP_VERSION}-json \
     ; fi \

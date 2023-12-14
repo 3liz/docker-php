@@ -8,7 +8,7 @@ Three flavour of images are available:
 - fpm
 - web, which include a web server and php-fpm
 
-And each of them are available in version 7.4, 8.1, 8.2 and 8.3RC5 (experimental).
+And each of them are available in version 7.4, 8.1, 8.2 and 8.3.
 
 Features
 ========
@@ -17,9 +17,8 @@ Features
 * Use packages from packages.sury.org, made by the maintainer of the official debian packages of PHP.
 * List of extensions:
   - all extensions built within the PHP binary of the debian package
-  - other: bcmath, bz2, curl, dba, gd, imap, intl, json, ldap, mbstring, mysql, pgsql, 
-    soap, sqlite3,xml, yaml, zip
-  - also: memcache, memcached, redis, uuid, yaml except for 8.3RC5 (not available yet into the apt repository)
+  - other: bcmath, bz2, curl, dba, gd, imap, intl, json, ldap, mbstring, memcache, memcached, mysql, pgsql,
+    redis, soap, sqlite3,xml, uuid, yaml, zip
 * Composer is also installed.
 * Other softwares : curl, wget, git, unzip, gnupg2
 * possibility to setup at startup the uid/gid of the user that run php, so generated files into volumes could be owned 
