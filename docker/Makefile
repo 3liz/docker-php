@@ -39,7 +39,7 @@ _build:
 	docker build --rm --force-rm --no-cache $(DOCKER_BUILD_ARGS) \
 		$(BUILD_ARGS) -t $(FPMBUILDIMAGE)  --target=php-fpm $(DOCKERFILE) .
 	docker build --rm --force-rm --no-cache $(DOCKER_BUILD_ARGS) \
-		$(BUILD_ARGS) -t $(FPMBUILDIMAGE)  --target=php-web $(DOCKERFILE) .
+		$(BUILD_ARGS) -t $(WEBFPMBUILDIMAGE)  --target=php-web $(DOCKERFILE) .
 
 build-dev: _build-dev manifest
 

@@ -7,9 +7,13 @@ services:
       - APP_USER_ID
       - APP_GROUP_ID
       - DISPLAY_ERRORS=on
+      - WEB_ROOT_DIRECTORY=/app/www/
+      - NGINX_HEADER=include snippets/second_location.conf;
     volumes:
-      - "./www/:/app/"
+      - "./www/:/app/www/"
+      - "./www2/:/www2/"
       - "./test-entrypoint.sh:/bin/entrypoint.d/test-entrypoint.sh"
       - "./log/:/var/log/docker-php/"
+      - "./second_location.conf:/etc/nginx/snippets/second_location.conf"
     ports:
       - 9659:80

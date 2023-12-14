@@ -1,7 +1,7 @@
 FROM debian:bullseye-slim as php-cli
 MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
 
-ARG composer_version=2.6.5
+ARG composer_version=2.6.6
 ARG php_version=8.1
 ARG app_user_id=1000
 ARG app_group_id=1000
@@ -99,12 +99,14 @@ RUN apt-get -y install \
     ; \
     apt-get clean
 
-RUN    mkdir /var/log/docker-php/;
-RUN  rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default;
+RUN  mkdir /var/log/docker-php/; \
+     rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default;
 
 COPY web/nginx/snippets/ /etc/nginx/snippets/
 COPY web/supervisord.conf /etc/supervisor/supervisord.conf
 COPY web/supervisord_workers.conf /etc/supervisor/conf.d/
-COPY web/nginx/default.conf /etc/nginx/sites-enabled/default.conf
+COPY web/web-entrypoint.sh /bin/entrypoint.d/
+
+RUN chmod +x /bin/entrypoint.d/web-entrypoint.sh
 
 CMD ["/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]
