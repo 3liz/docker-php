@@ -18,14 +18,16 @@ if [ "$CURRENT_USER_ID" == "0" ]; then
 
   chown userphp:groupphp /app
 
+  if [ -z "$NO_HOME_CHOWN" ];  then
+    chown -R userphp:groupphp /home/userphp
+  fi
+
   if [ "$DISPLAY_ERRORS" == "on" ]; then
       sed -i "/^display_errors =/c\display_errors = On" /etc/php/${PHP_VERSION}/cli/php.ini;
   else
       sed -i "/^display_errors =/c\display_errors = Off" /etc/php/${PHP_VERSION}/cli/php.ini;
   fi
 fi
-
-
 
 for entry in $(ls /bin/entrypoint.d/)
 do
