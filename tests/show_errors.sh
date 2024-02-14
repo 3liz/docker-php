@@ -1,6 +1,6 @@
 #!/bin/bash
 export DISPLAY_ERRORS=on
-PHP_VERSION=${PHP_VERSION:=8.1}
+PHP_VERSION=${PHP_VERSION:=8.3}
 
 echo "v=" $PHP_VERSION
 exit 0

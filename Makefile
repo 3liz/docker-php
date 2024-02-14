@@ -1,6 +1,6 @@
 
 # PHP version
-PHP_VERSION ?= 8.1
+PHP_VERSION ?= 8.3
 
 build:
 	$(MAKE) -C docker build tag PHP_VERSION=$(PHP_VERSION)

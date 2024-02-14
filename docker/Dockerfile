@@ -1,8 +1,8 @@
 FROM debian:bullseye-slim as php-cli
 MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
 
-ARG composer_version=2.6.6
-ARG php_version=8.1
+ARG composer_version=2.7.1
+ARG php_version=8.3
 ARG app_user_id=1000
 ARG app_group_id=1000
 

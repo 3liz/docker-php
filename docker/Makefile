@@ -8,7 +8,7 @@ BUILDID=$(shell date +"%Y%m%d%H%M")
 COMMITID=$(shell git rev-parse --short HEAD)
 
 # PHP version
-PHP_VERSION ?= 8.1
+PHP_VERSION ?= 8.3
 
 BUILD_ARGS += --build-arg php_version=$(PHP_VERSION)
 
