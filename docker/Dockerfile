@@ -1,7 +1,7 @@
-FROM debian:bullseye-slim as php-cli
-MAINTAINER Laurent Jouanneau <laurent.jouanneau@3liz.com>
+FROM debian:bullseye-slim AS php-cli
+LABEL org.opencontainers.image.authors="Laurent Jouanneau <laurent.jouanneau@3liz.com>"
 
-ARG composer_version=2.7.1
+ARG composer_version=2.7.7
 ARG php_version=8.3
 ARG app_user_id=1000
 ARG app_group_id=1000
@@ -12,15 +12,15 @@ ENV PHP_VERSION=${php_version}
 
 RUN set -eux; \
     echo 'alias ll="ls -al"' > /etc/profile.d/start; \
-	apt-get update; \
-    apt-get -y install apt-transport-https lsb-release ca-certificates curl wget git unzip gnupg2; \
+	apt update && apt upgrade -y && apt install -y \
+    apt-transport-https lsb-release ca-certificates curl wget git unzip gnupg2 \
+    && rm -rf /var/lib/apt/lists/*; \
     wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg; \
-    sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'; \
-    apt-get clean
+    sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list';
 
 RUN set -eux; \
-    apt-get update;  \
-    apt-get -y install \
+    apt update;  \
+    apt install -y \
     php${PHP_VERSION}-bcmath \
     php${PHP_VERSION}-bz2 \
     php${PHP_VERSION}-cli \
@@ -42,11 +42,11 @@ RUN set -eux; \
     php${PHP_VERSION}-redis \
     php${PHP_VERSION}-uuid \
     php${PHP_VERSION}-yaml \
-    ; if [ "$PHP_VERSION" = "7.4" ]; then apt-get -y install \
+    ; if [ "$PHP_VERSION" = "7.4" ]; then apt install -y \
         php${PHP_VERSION}-json \
     ; fi \
     ; \
-    apt-get clean
+    rm -rf /var/lib/apt/lists/*;
 
 ## Install Composer
 RUN wget -O /bin/composer https://getcomposer.org/download/$composer_version/composer.phar \
@@ -68,12 +68,11 @@ WORKDIR /app/
 ENTRYPOINT ["/bin/entrypoint.sh"]
 #CMD ["tail", "-f", "/var/log/php_cli_errors.log"]
 
-FROM php-cli as php-fpm
+FROM php-cli AS php-fpm
 
-RUN apt-get -y install \
+RUN apt update && apt install -y \
     php${PHP_VERSION}-fpm \
-    ; \
-    apt-get clean
+    && rm -rf /var/lib/apt/lists/*;
 
 RUN set -eux; \
     ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm; \
@@ -87,18 +86,17 @@ RUN chmod +x /bin/entrypoint.d/fpm-entrypoint.sh
 
 CMD ["/usr/sbin/php-fpm", "-F", "-O"]
 
-FROM php-fpm as php-web
+FROM php-fpm AS php-web
 
-RUN apt-get -y install \
+RUN apt update && apt install -y \
     nginx \
     nginx-common \
     nginx-extras \
     supervisor \
-    ; \
-    apt-get clean
+    && rm -rf /var/lib/apt/lists/*;
 
 RUN  mkdir /var/log/docker-php/; \
-     rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default;
+     rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default;
 
 COPY web/nginx/snippets/ /etc/nginx/snippets/
 COPY web/supervisord.conf /etc/supervisor/supervisord.conf
