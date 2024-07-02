@@ -4,9 +4,9 @@ Docker Images for PHP applications
 Images providing a PHP environment, with some preloaded extension.
 
 Three flavour of images are available:
-- cli
-- fpm
-- web, which include a web server and php-fpm
+- `3liz/liz-php-cli` : provides only the php shell command 
+- `3liz/liz-php-php` : launch a PHP-FPM server (fast-cgi)
+- `3liz/liz-php-web` : launch a web server (nginx) and php-fpm
 
 And each of them are available in version 7.4, 8.1, 8.2 and 8.3.
 
@@ -66,10 +66,10 @@ is running PHP with this group and user. By default, their id are `1000`.
 It means that files created by the PHP application will be owned by `userphp` and `groupphp`,
 with the id `1000`.
 
-If files are created in a volume, probably you would like an other id, so
-a specific user on the host could access to this files.
+If files are created in a volume, probably you would like another id, so
+a specific user on the host could access to these files.
 
-You can change the id, by providing environment variable containing these id,
+You can change the id, by providing environment variable containing this id,
 at the start of the container. Variables should be `APP_USER_ID` and `APP_GROUP_ID`.
 
 In most of case, during development, you would like to set with your own user id:
@@ -101,14 +101,12 @@ You can mount a volume at this path. It could contain a PHP application.
 
 
 
-Inheriting from the image
--------------------------
+Providing your entrypoint scripts
+---------------------------------
 
-You would want to use the image at a base image for your own images.
-
-You would like call your own scripts at startup, like any entrypoint.
+You would like to call your own scripts at startup, like any entrypoint.
 Just put your scripts into `/bin/entrypoint.d/`. They will be called by
-the main entrypoint of the `php-cli`/`php-fpm` image.
+the main entrypoint of the image, with the same parameters given to the main entrypoint.
 
 ```dockerfile
 FROM 3liz/liz-php-cli:8.3
