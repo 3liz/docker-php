@@ -1,4 +1,3 @@
-version: '3.4'
 services:
   web:
     image: 3liz/liz-php-web:${PHP_VERSION}-dev

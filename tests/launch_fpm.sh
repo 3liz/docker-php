@@ -8,7 +8,7 @@ export PHP_VERSION=${PHP_VERSION:=8.3}
 (
 
 cd app/
-docker-compose -p docker-php-tests build
-docker-compose -p docker-php-tests up
+docker compose -p docker-php-tests build
+docker compose -p docker-php-tests up
 
 )
