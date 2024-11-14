@@ -10,7 +10,17 @@ COMMITID=$(shell git rev-parse --short HEAD)
 # PHP version
 PHP_VERSION ?= 8.3
 
-BUILD_ARGS += --build-arg php_version=$(PHP_VERSION)
+ifeq ($(PHP_VERSION),7.4)
+  DEBIAN_VERSION=bullseye
+else ifeq ($(PHP_VERSION),8.0)
+  DEBIAN_VERSION=bullseye
+else ifeq ($(PHP_VERSION),8.1)
+  DEBIAN_VERSION=bullseye
+else
+	DEBIAN_VERSION=bookworm
+endif
+
+BUILD_ARGS += --build-arg php_version=$(PHP_VERSION) --build-arg debian_version=$(DEBIAN_VERSION)
 
 REGISTRY_URL ?= 3liz
 REGISTRY_PREFIX=$(REGISTRY_URL)/

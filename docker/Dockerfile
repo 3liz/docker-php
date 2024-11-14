@@ -1,4 +1,5 @@
-FROM debian:bullseye-slim AS php-cli
+ARG debian_version=bookworm
+FROM debian:${debian_version}-slim AS php-cli
 LABEL org.opencontainers.image.authors="Laurent Jouanneau <laurent.jouanneau@3liz.com>"
 
 ARG composer_version=2.7.7
