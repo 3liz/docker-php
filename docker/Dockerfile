@@ -28,7 +28,6 @@ RUN set -eux; \
     php${PHP_VERSION}-curl \
     php${PHP_VERSION}-dba \
     php${PHP_VERSION}-gd \
-    php${PHP_VERSION}-imap \
     php${PHP_VERSION}-intl \
     php${PHP_VERSION}-ldap \
     php${PHP_VERSION}-mbstring \
@@ -38,11 +37,14 @@ RUN set -eux; \
     php${PHP_VERSION}-sqlite3 \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-zip \
-    php${PHP_VERSION}-memcache \
-    php${PHP_VERSION}-memcached \
-    php${PHP_VERSION}-redis \
-    php${PHP_VERSION}-uuid \
-    php${PHP_VERSION}-yaml \
+    ; if [ "$PHP_VERSION" != "8.4" ]; then apt install -y \
+        php${PHP_VERSION}-imap \
+        php${PHP_VERSION}-memcache \
+        php${PHP_VERSION}-memcached \
+        php${PHP_VERSION}-redis \
+        php${PHP_VERSION}-uuid \
+        php${PHP_VERSION}-yaml \
+    ; fi \
     ; if [ "$PHP_VERSION" = "7.4" ]; then apt install -y \
         php${PHP_VERSION}-json \
     ; fi \
