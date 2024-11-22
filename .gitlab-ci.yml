@@ -8,6 +8,7 @@ stages:
 
 .build-docker:
   stage: build
+  image: ${REGISTRY_URL}/factory-ci-runner:build-package
   script:
     - make -C docker build deliver PHP_VERSION=$PHP_VERSION
     - make -C docker clean PHP_VERSION=$PHP_VERSION
@@ -55,14 +56,15 @@ build-docker:8.4:
 #-------------
 
 .release:
+  image: ${REGISTRY_URL}/factory-ci-runner:build-package
   stage: release
   script:
-    - FACTORY_MANIFEST="docker/factory-cli.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-cli-$PHP_VERSION
-    - FACTORY_MANIFEST="docker/factory-fpm.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-fpm-$PHP_VERSION
-    - FACTORY_MANIFEST="docker/factory-web.manifest" $FACTORY_SCRIPTS/release-image.sh liz-php-web-$PHP_VERSION
-    - FACTORY_MANIFEST="docker/factory-cli.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
-    - FACTORY_MANIFEST="docker/factory-fpm.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
-    - FACTORY_MANIFEST="docker/factory-web.manifest" $FACTORY_SCRIPTS/push-to-docker-hub.sh --clean
+    - FACTORY_MANIFEST="docker/factory-cli.manifest" release-image.sh liz-php-cli-$PHP_VERSION
+    - FACTORY_MANIFEST="docker/factory-fpm.manifest" release-image.sh liz-php-fpm-$PHP_VERSION
+    - FACTORY_MANIFEST="docker/factory-web.manifest" release-image.sh liz-php-web-$PHP_VERSION
+    - FACTORY_MANIFEST="docker/factory-cli.manifest" push-to-docker-hub.sh --clean
+    - FACTORY_MANIFEST="docker/factory-fpm.manifest" push-to-docker-hub.sh --clean
+    - FACTORY_MANIFEST="docker/factory-web.manifest" push-to-docker-hub.sh --clean
   environment:
     name: production
   when: manual
