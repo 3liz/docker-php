@@ -100,11 +100,11 @@ release:8.3:
   dependencies:
     - build-docker:8.3
 
-#release:8.4:
-#  extends: .release
-#  variables:
-#    PHP_VERSION: "8.4"
-#  dependencies:
-#    - build-docker:8.4
+release:8.4:
+  extends: .release
+  variables:
+    PHP_VERSION: "8.4"
+  dependencies:
+    - build-docker:8.4
 
 
