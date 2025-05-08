@@ -2,7 +2,7 @@ ARG debian_version=bookworm
 FROM debian:${debian_version}-slim AS php-cli
 LABEL org.opencontainers.image.authors="Laurent Jouanneau <laurent.jouanneau@3liz.com>"
 
-ARG composer_version=2.7.7
+ARG composer_version=2.8.8
 ARG php_version=8.3
 ARG app_user_id=1000
 ARG app_group_id=1000
