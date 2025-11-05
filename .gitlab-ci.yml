@@ -68,7 +68,6 @@ build-docker:8.5:
     - FACTORY_MANIFEST="docker/factory-web.manifest" push-to-docker-hub --clean
   environment:
     name: production
-  when: manual
   only:
     refs:
       - release
