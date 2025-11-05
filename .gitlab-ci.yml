@@ -13,18 +13,14 @@ stages:
     - make -C docker build deliver PHP_VERSION=$PHP_VERSION
     - make -C docker clean PHP_VERSION=$PHP_VERSION
   environment:
-    name: snap
+    name: dev
   artifacts:
     paths:
       - "docker/factory-cli.manifest"
       - "docker/factory-fpm.manifest"
       - "docker/factory-web.manifest"
-  only:
-    refs:
-      - tags
-      - main
   tags:
-    - infrav3-dind
+    - factory-dind
 
 build-docker:7.4:
   extends: .build-docker
@@ -51,6 +47,11 @@ build-docker:8.4:
   variables:
     PHP_VERSION: "8.4"
 
+build-docker:8.5:
+  extends: .build-docker
+  variables:
+    PHP_VERSION: "8.5"
+
 #-------------
 # Release
 #-------------
@@ -70,9 +71,10 @@ build-docker:8.4:
   when: manual
   only:
     refs:
-      - tags
+      - release
+      - scheduled
   tags:
-    - infrav3-dind
+    - factory-dind
 
 release:7.4:
   extends: .release

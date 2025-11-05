@@ -50,12 +50,9 @@ all:
 build: _build manifest
 
 _build:
-	docker build --rm --force-rm --no-cache $(DOCKER_BUILD_ARGS) \
-		$(BUILD_ARGS) -t $(CLIBUILDIMAGE)  --target=php-cli $(DOCKERFILE) .
-	docker build --rm --force-rm  $(DOCKER_BUILD_ARGS) \
-		$(BUILD_ARGS) -t $(FPMBUILDIMAGE)  --target=php-fpm $(DOCKERFILE) .
-	docker build --rm --force-rm  $(DOCKER_BUILD_ARGS) \
-		$(BUILD_ARGS) -t $(WEBFPMBUILDIMAGE)  --target=php-web $(DOCKERFILE) .
+	docker build --rm --force-rm --no-cache $(DOCKER_BUILD_ARGS) $(BUILD_ARGS) -t $(CLIBUILDIMAGE)  --target=php-cli $(DOCKERFILE) .
+	docker build --rm --force-rm $(DOCKER_BUILD_ARGS) $(BUILD_ARGS) -t $(FPMBUILDIMAGE)  --target=php-fpm $(DOCKERFILE) .
+	docker build --rm --force-rm $(DOCKER_BUILD_ARGS) $(BUILD_ARGS) -t $(WEBFPMBUILDIMAGE)  --target=php-web $(DOCKERFILE) .
 
 build-dev: _build-dev manifest
 
@@ -71,10 +68,10 @@ manifest:
 	version=`echo $$PHP_VERSION`-`echo $$version_scripts`; \
 	release_tag=`echo $$PHP_VERSION`; \
 	echo name=$(CLINAME) > $(CLIMANIFEST) && \
-    echo version=$$version >> $(CLIMANIFEST) && \
-    echo release_tag=$$release_tag >> $(CLIMANIFEST) && \
-    echo buildid=$(BUILDID)   >> $(CLIMANIFEST) && \
-    echo commitid=$(COMMITID) >> $(CLIMANIFEST); \
+	echo version=$$version >> $(CLIMANIFEST) && \
+	echo release_tag=$$release_tag >> $(CLIMANIFEST) && \
+	echo buildid=$(BUILDID)   >> $(CLIMANIFEST) && \
+	echo commitid=$(COMMITID) >> $(CLIMANIFEST); \
 	echo name=$(FPMNAME) > $(FPMMANIFEST) && \
 	echo version=$$version >> $(FPMMANIFEST) && \
 	echo release_tag=$$release_tag >> $(FPMMANIFEST) && \
@@ -89,24 +86,22 @@ manifest:
 
 deliver: tag push
 
-ifndef CI_COMMIT_TAG
-
+ifneq ($(CI_COMMIT_BRANCH),release)
 TAG_DEV=dev
 
 tag:
-	{ set -e; source $(CLIMANIFEST); \
+	{ set -e; \
+	source $(CLIMANIFEST); \
 	docker tag $(CLIBUILDIMAGE) $(REGISTRY_PREFIX)$(CLINAME):$${release_tag}-$(TAG_DEV); \
-	docker tag $(CLIBUILDIMAGE) $(REGISTRY_PREFIX)$(CLINAME):$${release_tag}; \
 	source $(FPMMANIFEST); \
 	docker tag $(FPMBUILDIMAGE) $(REGISTRY_PREFIX)$(FPMNAME):$${release_tag}-$(TAG_DEV); \
-	docker tag $(FPMBUILDIMAGE) $(REGISTRY_PREFIX)$(FPMNAME):$${release_tag}; \
 	source $(WEBFPMMANIFEST); \
 	docker tag $(WEBFPMBUILDIMAGE) $(REGISTRY_PREFIX)$(WEBFPMNAME):$${release_tag}-$(TAG_DEV); \
-	docker tag $(WEBFPMBUILDIMAGE) $(REGISTRY_PREFIX)$(WEBFPMNAME):$${release_tag}; \
 	}
 
 push:
-	{ set -e; source $(CLIMANIFEST); \
+	{ set -e; \
+	source $(CLIMANIFEST); \
 	docker push $(REGISTRY_URL)/$(CLINAME):$${release_tag}-$(TAG_DEV); \
 	source $(FPMMANIFEST); \
 	docker push $(REGISTRY_URL)/$(FPMNAME):$${release_tag}-$(TAG_DEV); \
@@ -115,7 +110,8 @@ push:
 	}
 else
 tag:
-	{ set -e; source $(CLIMANIFEST); \
+	{ set -e; \
+	source $(CLIMANIFEST); \
 	docker tag $(CLIBUILDIMAGE) $(REGISTRY_PREFIX)$(CLINAME):$$version; \
 	docker tag $(CLIBUILDIMAGE) $(REGISTRY_PREFIX)$(CLINAME):$$release_tag; \
 	source $(FPMMANIFEST); \
