@@ -16,8 +16,14 @@ else ifeq ($(PHP_VERSION),8.0)
   DEBIAN_VERSION=bullseye
 else ifeq ($(PHP_VERSION),8.1)
   DEBIAN_VERSION=bullseye
+else ifeq ($(PHP_VERSION),8.2)
+  DEBIAN_VERSION=bookworm
+else ifeq ($(PHP_VERSION),8.3)
+  DEBIAN_VERSION=bookworm
+else ifeq ($(PHP_VERSION),8.4)
+  DEBIAN_VERSION=bookworm
 else
-	DEBIAN_VERSION=bookworm
+  DEBIAN_VERSION=trixie
 endif
 
 BUILD_ARGS += --build-arg php_version=$(PHP_VERSION) --build-arg debian_version=$(DEBIAN_VERSION)
@@ -73,7 +79,7 @@ manifest:
 	echo version=$$version >> $(FPMMANIFEST) && \
 	echo release_tag=$$release_tag >> $(FPMMANIFEST) && \
 	echo buildid=$(BUILDID)   >> $(FPMMANIFEST) && \
-	echo commitid=$(COMMITID) >> $(WEBFPMMANIFEST); \
+	echo commitid=$(COMMITID) >> $(FPMMANIFEST); \
 	echo name=$(WEBFPMNAME) > $(WEBFPMMANIFEST) && \
 	echo version=$$version >> $(WEBFPMMANIFEST) && \
 	echo release_tag=$$release_tag >> $(WEBFPMMANIFEST) && \

@@ -13,7 +13,7 @@ ENV PHP_VERSION=${php_version}
 
 RUN set -eux; \
     echo 'alias ll="ls -al"' > /etc/profile.d/start; \
-	apt update && apt upgrade -y && apt install -y \
+    apt update && apt upgrade -y && apt install -y \
     apt-transport-https lsb-release ca-certificates curl wget git unzip gnupg2 \
     && rm -rf /var/lib/apt/lists/*; \
     wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg; \
@@ -37,12 +37,14 @@ RUN set -eux; \
     php${PHP_VERSION}-sqlite3 \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-zip \
-    php${PHP_VERSION}-imap \
-    php${PHP_VERSION}-memcache \
-    php${PHP_VERSION}-memcached \
-    php${PHP_VERSION}-redis \
-    php${PHP_VERSION}-uuid \
-    php${PHP_VERSION}-yaml \
+    ; if [ "$PHP_VERSION" != "8.5" ]; then apt install -y \
+        php${PHP_VERSION}-imap \
+        php${PHP_VERSION}-memcache \
+        php${PHP_VERSION}-memcached \
+        php${PHP_VERSION}-redis \
+        php${PHP_VERSION}-uuid \
+        php${PHP_VERSION}-yaml \
+    ; fi \
     ; if [ "$PHP_VERSION" = "7.4" ]; then apt install -y \
         php${PHP_VERSION}-json \
     ; fi \

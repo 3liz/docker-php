@@ -8,7 +8,7 @@ Three flavour of images are available:
 - `3liz/liz-php-php` : launch a PHP-FPM server (fast-cgi)
 - `3liz/liz-php-web` : launch a web server (nginx) and php-fpm
 
-And each of them are available in version 7.4, 8.1, 8.2 and 8.3.
+And each of them is available in 7.4, 8.1, 8.2, 8.3 and 8.4 versions.
 
 Features
 ========
@@ -21,8 +21,8 @@ Features
     redis, soap, sqlite3,xml, uuid, yaml, zip
 * Composer is also installed.
 * Other softwares : curl, wget, git, unzip, gnupg2
-* possibility to setup at startup the uid/gid of the user that run php, so generated files into volumes could be owned 
-  by the corresponding user on the host for example. 
+* possibility to set up at startup the uid/gid of the user that run php, so generated files into volumes could be owned 
+  by the corresponding user on the host, for example. 
 * possibility to extend the entrypoint script.
 * possibility to enable the display of errors for debug 
 
