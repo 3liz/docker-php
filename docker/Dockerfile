@@ -2,7 +2,7 @@ ARG debian_version=bookworm
 FROM debian:${debian_version}-slim AS php-cli
 LABEL org.opencontainers.image.authors="Laurent Jouanneau <laurent.jouanneau@3liz.com>"
 
-ARG composer_version=2.8.9
+ARG composer_version=2.9.2
 ARG php_version=8.3
 ARG app_user_id=1000
 ARG app_group_id=1000
@@ -29,21 +29,21 @@ RUN set -eux; \
     php${PHP_VERSION}-dba \
     php${PHP_VERSION}-gd \
     php${PHP_VERSION}-intl \
+    php${PHP_VERSION}-imap \
     php${PHP_VERSION}-ldap \
     php${PHP_VERSION}-mbstring \
+    php${PHP_VERSION}-memcached \
     php${PHP_VERSION}-mysql \
     php${PHP_VERSION}-pgsql \
+    php${PHP_VERSION}-redis \
     php${PHP_VERSION}-soap \
     php${PHP_VERSION}-sqlite3 \
+    php${PHP_VERSION}-uuid \
     php${PHP_VERSION}-xml \
+    php${PHP_VERSION}-yaml \
     php${PHP_VERSION}-zip \
     ; if [ "$PHP_VERSION" != "8.5" ]; then apt install -y \
-        php${PHP_VERSION}-imap \
         php${PHP_VERSION}-memcache \
-        php${PHP_VERSION}-memcached \
-        php${PHP_VERSION}-redis \
-        php${PHP_VERSION}-uuid \
-        php${PHP_VERSION}-yaml \
     ; fi \
     ; if [ "$PHP_VERSION" = "7.4" ]; then apt install -y \
         php${PHP_VERSION}-json \
