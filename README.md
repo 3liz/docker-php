@@ -1,19 +1,21 @@
 Docker Images for PHP applications
 ==================================
 
-Images providing a PHP environment, with some preloaded extension.
+The project provides some Docker images providing a PHP environment with some preloaded extensions.
 
-Three flavour of images are available:
+Three flavours of images are available:
 - `3liz/liz-php-cli` : provides only the php shell command 
 - `3liz/liz-php-php` : launch a PHP-FPM server (fast-cgi)
 - `3liz/liz-php-web` : launch a web server (nginx) and php-fpm
 
-And each of them is available in 7.4, 8.1, 8.2, 8.3 and 8.4 versions.
+And each of them is available with PHP 7.4, 8.1, 8.2, 8.3, 8.4 and 8.5.
+
+Each image is updated each week and is available on Docker Hub.
 
 Features
 ========
 
-* Based on Debian Bullseye-slim
+* Based on Debian (bullseye for PHP 7.4 and 8.1, bookworm for PHP 8.2 to 8.3, and trixie for PHP 8.5)
 * Use packages from packages.sury.org, made by the maintainer of the official debian packages of PHP.
 * List of extensions:
   - all extensions built within the PHP binary of the debian package
@@ -21,8 +23,8 @@ Features
     redis, soap, sqlite3,xml, uuid, yaml, zip
 * Composer is also installed.
 * Other softwares : curl, wget, git, unzip, gnupg2
-* possibility to set up at startup the uid/gid of the user that run php, so generated files into volumes could be owned 
-  by the corresponding user on the host, for example. 
+* possibility to set up at startup the uid/gid of the user that run php, so generated files 
+  into volumes could be owned by the corresponding user on the host, for example. 
 * possibility to extend the entrypoint script.
 * possibility to enable the display of errors for debug 
 
@@ -38,7 +40,7 @@ make build
 You can set the PHP_VERSION to the version of PHP you want.
 
 ```
-make build PHP_VERSION=8.1
+make build PHP_VERSION=8.4
 ```
 
 To run images
@@ -47,7 +49,7 @@ To run images
 Simple example that launch `php --version` :
 
 ```
-docker run -i 3liz/liz-php-cli:8.3 php --version
+docker run -i 3liz/liz-php-cli:8.4 php --version
 ```
 
 environment variables
@@ -69,10 +71,10 @@ with the id `1000`.
 If files are created in a volume, probably you would like another id, so
 a specific user on the host could access to these files.
 
-You can change the id, by providing environment variable containing this id,
+You can change the id, by providing an environment variable containing this id,
 at the start of the container. Variables should be `APP_USER_ID` and `APP_GROUP_ID`.
 
-In most of case, during development, you would like to set with your own user id:
+In most of the cases, during development, you would like to set with your own user id:
 
 ```
 
@@ -151,16 +153,16 @@ server {
 
 ```
 
-It may be enough for little internal application without reverse proxy. But you 
-may need to enhance this definition in production environment.
+It may be enough for a little internal application without reverse proxy. But you 
+may need to enhance this definition in a production environment.
 
-You can enhance it by two ways: by setting some environment variables, or by providing 
+You can enhance it by two ways: by setting some environment variables or by providing 
 your own nginx configuration
 
 Customizing the default virtual host
 ------------------------------------
 
-The default virtual host describe above can be modified by setting these environment
+The default virtual host described above can be modified by setting these environment
 variables:
 
 - `WEB_ROOT_DIRECTORY`: the full path to the document root (files accessible from the web). Default: `/app/`.
