@@ -8,7 +8,7 @@ BUILDID=$(shell date +"%Y%m%d%H%M")
 COMMITID=$(shell git rev-parse --short HEAD)
 
 # PHP version
-PHP_VERSION ?= 8.3
+PHP_VERSION ?= 8.5
 
 ifeq ($(PHP_VERSION),7.4)
   DEBIAN_VERSION=bullseye
