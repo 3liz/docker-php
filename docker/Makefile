@@ -10,11 +10,7 @@ COMMITID=$(shell git rev-parse --short HEAD)
 # PHP version
 PHP_VERSION ?= 8.5
 
-ifeq ($(PHP_VERSION),7.4)
-  DEBIAN_VERSION=bullseye
-else ifeq ($(PHP_VERSION),8.0)
-  DEBIAN_VERSION=bullseye
-else ifeq ($(PHP_VERSION),8.1)
+ifeq ($(PHP_VERSION),8.1)
   DEBIAN_VERSION=bookworm
 else ifeq ($(PHP_VERSION),8.2)
   DEBIAN_VERSION=bookworm

@@ -22,11 +22,6 @@ stages:
   tags:
     - factory-dind
 
-build-docker:7.4:
-  extends: .build-docker
-  variables:
-    PHP_VERSION: "7.4"
-
 build-docker:8.1:
   extends: .build-docker
   variables:
@@ -74,13 +69,6 @@ build-docker:8.5:
       - scheduled
   tags:
     - factory-dind
-
-release:7.4:
-  extends: .release
-  variables:
-    PHP_VERSION: "7.4"
-  dependencies:
-    - build-docker:7.4
 
 release:8.1:
   extends: .release

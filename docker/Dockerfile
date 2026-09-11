@@ -45,9 +45,6 @@ RUN set -eux; \
     ; if [ "$PHP_VERSION" != "8.5" ]; then apt install -y \
         php${PHP_VERSION}-memcache \
     ; fi \
-    ; if [ "$PHP_VERSION" = "7.4" ]; then apt install -y \
-        php${PHP_VERSION}-json \
-    ; fi \
     ; \
     rm -rf /var/lib/apt/lists/*;
 

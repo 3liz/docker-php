@@ -6,6 +6,7 @@ next
 
 - Use debian trixie for the image PHP 8.4
 - Use debian bookworm for the image PHP 8.1
+- Drop support of PHP 7.4
 
 1.9.0 - 2025-12-10
 ------------------
