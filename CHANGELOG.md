@@ -1,6 +1,11 @@
 CHANGELOG
 ==========
 
+next
+----
+
+- Use debian trixie for the image PHP 8.4
+- Use debian bookworm for the image PHP 8.1
 
 1.9.0 - 2025-12-10
 ------------------
@@ -37,6 +42,7 @@ CHANGELOG
 ------------------
 
 - New image with PHP 8.3
+- Drop support for PHP 8.0
 - New images including nginx + php-fpm
 - Ability to configure the default virtual host of the web image
 

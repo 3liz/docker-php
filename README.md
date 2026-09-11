@@ -15,12 +15,12 @@ Current status of images :
 
 | docker tag  |  OS |  supported  | available since  | end of life  |
 |------|----------|-----|----------|----------|
-| 7.4  | bullseye | NO  | dec 2021 | - |
-| 8.0  | bullseye | NO  | dec 2021 | - |
-| 8.1  | bullseye | NO  | dec 2021 | - |
+| 7.4  | bullseye | YES  | dec 2021 | |
+| 8.0  | bullseye | NO  | dec 2021 | dec 2023 |
+| 8.1  | bookworm | YES  | dec 2021 | - |
 | 8.2  | bookworm | YES | jan 2023 | - |
 | 8.3  | bookworm | YES | dec 2023 | - |
-| 8.4  | bookworm | YES | nov 2024 | - |
+| 8.4  | trixie | YES | nov 2024 | - |
 | 8.5  | trixie   | YES | dec 2025 | - |
 
 Features

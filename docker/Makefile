@@ -15,13 +15,13 @@ ifeq ($(PHP_VERSION),7.4)
 else ifeq ($(PHP_VERSION),8.0)
   DEBIAN_VERSION=bullseye
 else ifeq ($(PHP_VERSION),8.1)
-  DEBIAN_VERSION=bullseye
+  DEBIAN_VERSION=bookworm
 else ifeq ($(PHP_VERSION),8.2)
   DEBIAN_VERSION=bookworm
 else ifeq ($(PHP_VERSION),8.3)
   DEBIAN_VERSION=bookworm
 else ifeq ($(PHP_VERSION),8.4)
-  DEBIAN_VERSION=bookworm
+  DEBIAN_VERSION=trixie
 else
   DEBIAN_VERSION=trixie
 endif
