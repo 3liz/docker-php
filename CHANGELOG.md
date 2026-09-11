@@ -1,8 +1,8 @@
 CHANGELOG
 ==========
 
-next
-----
+1.10.0 - 2026-09-11
+-------------------
 
 - Use debian trixie for the image PHP 8.4
 - Use debian bookworm for the image PHP 8.1
