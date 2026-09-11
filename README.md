@@ -8,14 +8,25 @@ Three flavours of images are available:
 - `3liz/liz-php-php` : launch a PHP-FPM server (fast-cgi)
 - `3liz/liz-php-web` : launch a web server (nginx) and php-fpm
 
-And each of them is available with PHP 7.4, 8.1, 8.2, 8.3, 8.4 and 8.5.
-
+And each of them is available with different PHP version.
 Each image is updated each week and is available on Docker Hub.
+
+Current status of images :
+
+| docker tag  |  OS |  supported  | available since  | end of life  |
+|------|----------|-----|----------|----------|
+| 7.4  | bullseye | NO  | dec 2021 | - |
+| 8.0  | bullseye | NO  | dec 2021 | - |
+| 8.1  | bullseye | NO  | dec 2021 | - |
+| 8.2  | bookworm | YES | jan 2023 | - |
+| 8.3  | bookworm | YES | dec 2023 | - |
+| 8.4  | bookworm | YES | nov 2024 | - |
+| 8.5  | trixie   | YES | dec 2025 | - |
 
 Features
 ========
 
-* Based on Debian (bullseye for PHP 7.4 and 8.1, bookworm for PHP 8.2 to 8.3, and trixie for PHP 8.5)
+* Based on Debian 
 * Use packages from packages.sury.org, made by the maintainer of the official debian packages of PHP.
 * List of extensions:
   - all extensions built within the PHP binary of the debian package
@@ -111,10 +122,10 @@ Just put your scripts into `/bin/entrypoint.d/`. They will be called by
 the main entrypoint of the image, with the same parameters given to the main entrypoint.
 
 ```dockerfile
-FROM 3liz/liz-php-cli:8.3
+FROM 3liz/liz-php-cli:8.5
 
 # exemple to install a specific extension
-RUN apt-get -y install php8.3-other-extension
+RUN apt-get -y install php8.5-other-extension
 
 # exemple to add an additional entrypoint script
 COPY my-entrypoint-script.sh /bin/entrypoint.d/
