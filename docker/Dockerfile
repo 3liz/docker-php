@@ -62,6 +62,7 @@ RUN set -eux; \
 
 COPY entrypoint.sh /bin/
 COPY helpers.sh /bin/
+COPY dockerphp-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/80-dockerphp.ini
 RUN chmod 755 /bin/entrypoint.sh /bin/helpers.sh
 
 WORKDIR /app/
@@ -79,6 +80,7 @@ RUN set -eux; \
     mkdir -p /run/php/;
 
 COPY www.conf /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+COPY dockerphp-fpm.ini /etc/php/${PHP_VERSION}/fpm/conf.d/80-dockerphp.ini
 COPY fpm-entrypoint.sh /bin/entrypoint.d/
 COPY default-php-fpm /etc/default/php-fpm
 
