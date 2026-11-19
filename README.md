@@ -11,7 +11,7 @@ Three flavours of images are available:
 And each of them is available with different PHP version.
 Each image is updated each week and is available on Docker Hub.
 
-Current status of images :
+Current status of these images :
 
 | docker tag  |  OS |  supported  | available since  | end of life  |
 |------|----------|-----|----------|----------|
@@ -22,6 +22,7 @@ Current status of images :
 | 8.3  | bookworm | YES | dec 2023 | - |
 | 8.4  | trixie | YES | nov 2024 | - |
 | 8.5  | trixie   | YES | dec 2025 | - |
+| 8.6  | trixie   | YES | nov 2026 | - |
 
 Features
 ========
@@ -231,6 +232,3 @@ Access to logs of the web image
 
 Logs of Nginx and PHP-Fpm are stored into `/var/log/docker-php/` so you can mount
 a volume on this directory to access easily to logs. 
-
-
-
