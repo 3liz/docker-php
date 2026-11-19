@@ -1,6 +1,12 @@
 CHANGELOG
 ==========
 
+1.10.3 - 2026-11-19
+-------------------
+
+- New images with PHP 8.6
+- Fix several vulnerabilities in PHP 8.1 to 8.5 (CVE-2026-129474, CVE-2026-129182, CVE-2026-129538...)
+
 1.10.2 - 2026-10-21
 -------------------
 
@@ -103,4 +109,3 @@ CHANGELOG
 
 Initial release. Available PHP version: 7.4, 8.0, 8.1, with debian buster.
 Images with only cli, and Images with only fpm.
-
